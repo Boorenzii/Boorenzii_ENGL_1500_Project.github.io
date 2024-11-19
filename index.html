@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jawad Ali - Software Engineering Journey</title>
+    <style>
+        :root {
+            --isu-cardinal: #C8102E;
+            --isu-gold: #F1BE48;
+            --isu-cardinal-dark: #B00E29;
+            --text-color: #333;
+            --bg-light: #f5f5f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: var(--bg-light);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        /* Animation Keyframes */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(200, 16, 46, 0.95);
+            padding: 1rem;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-links a:hover {
+            background: var(--isu-gold);
+            color: var(--isu-cardinal);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, var(--isu-cardinal), var(--isu-cardinal-dark));
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Ctext x='10' y='20' fill='rgba(255,255,255,0.1)' font-family='monospace' font-size='10'%3Eclass Journey {%3C/text%3E%3Ctext x='10' y='40' fill='rgba(255,255,255,0.1)' font-family='monospace' font-size='10'%3E  growAndLearn();%3C/text%3E%3Ctext x='10' y='60' fill='rgba(255,255,255,0.1)' font-family='monospace' font-size='10'%3E}%3C/text%3E%3C/svg%3E");
+            opacity: 0.1;
+        }
+
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 90%;
+            max-width: 800px;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.8s ease-out 0.2s forwards;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease-out 0.4s forwards;
+        }
+
+        /* Content Sections */
+        .section {
+            padding: 5rem 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            color: var(--isu-cardinal);
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        /* Challenges Section */
+        .challenges-section {
+            background: white;
+            padding: 5rem 2rem;
+        }
+
+        .challenge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .challenge-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--isu-cardinal);
+            transition: transform 0.3s ease;
+        }
+
+        .challenge-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .challenge-card h3 {
+            color: var(--isu-cardinal);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .quote-section {
+            margin: 4rem 0;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .highlight-quote {
+            font-size: 1.5rem;
+            color: var(--isu-cardinal);
+            font-style: italic;
+            position: relative;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--isu-gold);
+            margin: 2rem 0;
+        }
+
+        /* Experience Section */
+        .experience-section {
+            background: #f8f9fa;
+            padding: 4rem 2rem;
+        }
+
+        .experience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .experience-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-top: 4px solid var(--isu-cardinal);
+            transition: transform 0.3s ease;
+        }
+
+        .experience-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Solar Car Section */
+        .solar-car-section {
+            background: var(--isu-cardinal);
+            color: white;
+            padding: 4rem 2rem;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .tech-card {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: white;
+            padding: 4rem 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            background: var(--isu-cardinal);
+            color: white;
+            border-radius: 10px;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            color: var(--isu-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Resources Section */
+        .resources-section {
+            background: #f8f9fa;
+            padding: 4rem 2rem;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .resource-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .resource-card ul {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .resource-card li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .resource-card li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--isu-cardinal);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--isu-cardinal);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .section {
+                padding: 3rem 1rem;
+            }
+        }
+
+        .resources-section {
+    background: #f8f9fa;
+    padding: 4rem 2rem;
+}
+
+.resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.resource-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.resource-card:hover {
+    transform: translateY(-5px);
+}
+
+.resource-card h3 {
+    color: var(--isu-cardinal);
+    margin-bottom: 1.5rem;
+    font-size: 1.4rem;
+}
+
+.resource-card ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.resource-card li {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+    position: relative;
+    line-height: 1.6;
+}
+
+.resource-card li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--isu-cardinal);
+}
+
+.impact-grid {
+    margin-top: 3rem;
+}
+
+.impact-grid .resource-card {
+    max-width: 800px;
+    margin: 0 auto;
+    background: var(--isu-cardinal);
+    color: white;
+}
+
+.impact-grid .resource-card h3 {
+    color: var(--isu-gold);
+}
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-links">
+            <a href="#challenges">Challenges</a>
+            <a href="#experience">Experience</a>
+            <a href="#growth">Growth</a>
+            <a href="#resources">Resources</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <svg width="150" height="150" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="45" fill="#F1BE48"/>
+                <text x="50" y="65" text-anchor="middle" font-family="Arial" font-size="30" fill="#C8102E">ISU</text>
+            </svg>
+            <h1>Software Engineering Journey</h1>
+            <p>Jawad Ali</p>
+            <p>Sophomore at Iowa State University</p>
+        </div>
+    </section>
+
+    <section class="challenges-section" id="challenges">
+        <div class="container">
+            <h2>My Software Engineering Challenges</h2>
+            <div class="challenge-grid">
+                <div class="challenge-card animate-fade-up">
+                    <h3>Imposter Syndrome</h3>
+                    <p>During my first year at Iowa State, I often questioned whether I belonged in software engineering. Surrounded by peers who seemed to grasp concepts effortlessly, I grappled with self-doubt. However, through persistence and support from mentors in the Computer Science department, I learned that everyone faces similar doubts, and these feelings are part of the growth process.</p>
+                </div>
+                <div class="challenge-card animate-fade-up">
+                    <h3>Technical Hurdles</h3>
+                    <p>The transition from basic programming to complex data structures in COMS 2280 tested my resilience. Each debugging session in the Coover Hall labs, though frustrating, taught me valuable lessons about patience and analytical thinking.</p>
+                </div>
+                <div class="challenge-card animate-fade-up">
+                    <h3>Time Management</h3>
+                    <p>Balancing coursework with my role on Iowa State's varsity esports team required learning crucial time management skills. Creating the team's analysis program while maintaining academic excellence taught me how to prioritize tasks and work efficiently under pressure.</p>
+                </div>
+            </div>
+
+            <div class="quote-section">
+                <div class="highlight-quote">
+                    "The biggest challenge wasn't learning to code – it was learning to believe in myself and embrace the process of growth. Through the support of the ISU community, I discovered that every obstacle was an opportunity to learn."
+                </div>
+            </div>
+
+            <div class="challenge-grid">
+                <div class="challenge-card animate-fade-up">
+                    <h3>How I Overcame Challenges</h3>
+                    <p>I found strength in connecting with fellow students during SI sessions and the Software Engineering Club. Realizing I wasn't alone in my struggles made a huge difference. Through tutoring and collaborative projects, I began to recognize my own growth.</p>
+                </div>
+                <div class="challenge-card animate-fade-up">
+                    <h3>Growth Mindset</h3>
+                    <p>Learning to see mistakes as learning opportunities rather than failures changed my perspective. Each error in my code became a chance to deepen my understanding. This mindset shift was crucial for my development as a software engineer.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="experience-section" id="experience">
+        <div class="container">
+            <h2>Current Experience</h2>
+            <div class="experience-grid">
+                <div class="experience-card animate-fade-up">
+                    <h3>Solar Car Team</h3>
+                    <p>As an Embedded Software Developer on Iowa State's Solar Car Team, I work on real-time systems and sensor integration, applying my classroom knowledge to practical engineering challenges.</p>
+                </div>
+                <div class="experience-card animate-fade-up">
+                    <h3>Project Development</h3>
+                    <p>Through various projects, I've gained hands-on experience with different programming languages and development tools, strengthening my problem-solving abilities.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-section" id="growth">
+        <div class="container">
+            <h2>My Journey So Far</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">100+</div>
+                    <p>Hours of Coding</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">10</div>
+                    <p>Projects Completed</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">1</div>
+                    <p>Solar Car Team</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="resources-section" id="resources">
+        <div class="container">
+            <h2>Resources That Shaped My Journey</h2>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <h3>Academic Support</h3>
+                    <ul>
+                        <li>SI Sessions - Essential for COMS classes, helping me understand complex concepts through peer learning</li>
+                        <li>Tutoring Services - One-on-one help that built my confidence in programming fundamentals</li>
+                        <li>Software Engineering Club - Where I found mentorship and friendship with fellow engineers</li>
+                        <li>Engineering Computer Labs - Late night coding sessions where problems turned into solutions</li>
+                    </ul>
+                </div>
+    
+                <div class="resource-card">
+                    <h3>Technical Resources</h3>
+                    <ul>
+                        <li>Team Projects - Real-world experience working with other developers</li>
+                        <li>Coding Practice - Regular practice sessions strengthened my problem-solving skills</li>
+                        <li>Peer Programming - Learning from and teaching others improved my coding abilities</li>
+                    </ul>
+                </div>
+    
+                <div class="resource-card">
+                    <h3>Growth Through Community</h3>
+                    <ul>
+                        <li>Study Groups - Regular meetups with classmates to tackle challenging concepts</li>
+                        <li>Professor Office Hours - Direct guidance from experienced educators</li>
+                        <li>Online Programming Communities - Additional support and learning resources</li>
+                    </ul>
+                </div>
+            </div>
+    
+            <div class="quote-section">
+                <div class="highlight-quote">
+                    "The combination of structured support through SI sessions and peer collaboration in the Software Engineering Club transformed my learning experience at Iowa State."
+                </div>
+            </div>
+    
+            <div class="impact-grid">
+                <div class="resource-card">
+                    <h3>Key Takeaways</h3>
+                    <p>These resources didn't just help me learn coding - they taught me the importance of community, perseverance, and continuous learning. Each resource played a crucial role in overcoming different challenges in my software engineering journey.</p>
+                </div>
+            </div>
+        </div>
+    </section>
